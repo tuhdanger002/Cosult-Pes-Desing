@@ -1,0 +1,129 @@
+/* --- 1. FONDO GLOBAL Y FORMULARIO (ADIÓS AL BLANCO) --- */
+:host {
+    display: block;
+    background-color: #1a1a2e !important;
+    min-height: 100vh;
+}
+
+/* Forzar que el contenedor de los filtros sea oscuro */
+.max-w-7xl, .bg-filtros-container {
+    background-color: #252538 !important;
+    border: 1px solid #3f3f46 !important;
+    border-radius: 16px;
+}
+
+:host ::ng-deep {
+    /* Fondo de los inputs, calendarios y selectores */
+    .p-inputtext, 
+    .p-datepicker, 
+    .p-select,
+    .p-select-label,
+    .p-datepicker-input {
+        background-color: #1a1a2e !important; 
+        color: #ffffff !important;
+        border: 1px solid #3f3f46 !important;
+        font-size: 16px !important;
+    }
+
+    /* Paneles que se despliegan (Dropdowns y Calendarios) */
+    .p-datepicker-panel, .p-select-panel, .p-select-items-wrapper {
+        background-color: #252538 !important;
+        color: #ffffff !important;
+        border: 1px solid #3f3f46 !important;
+    }
+
+    /* --- 2. TABLA Y BLOQUES INTERCALADOS --- */
+    
+    /* Eliminar fondos por defecto de PrimeNG */
+    .p-datatable, .p-datatable-wrapper, .p-datatable-table {
+        background-color: transparent !important;
+    }
+
+    .p-datatable .p-datatable-thead > tr > th {
+        background-color: #1e1e2d !important;
+        color: #94a3b8 !important;
+        border-bottom: 3px solid #2563eb !important;
+        padding: 1.5rem 1rem !important;
+        font-size: 15px !important;
+    }
+
+    /* HERENCIA DE COLOR: Fundamental para que el intercalado funcione */
+    .p-datatable .p-datatable-tbody > tr > td {
+        background-color: inherit !important; 
+        border: none !important;
+        padding: 1rem !important;
+        font-size: 16px !important;
+        color: #ffffff;
+    }
+
+    /* Colores de los bloques (Debe coincidir con el [class] del HTML) */
+    .bg-grupo-a {
+        background-color: #1a1a2e !important;
+    }
+
+    .bg-grupo-b {
+        background-color: #252538 !important;
+    }
+
+    /* Separador entre grupos de PES */
+    .row-separator {
+        border-bottom: 15px solid #0f172a !important; 
+    }
+
+    /* Paginador oscuro */
+    .p-paginator {
+        background-color: transparent !important;
+        border: none !important;
+    }
+
+    /* --- 3. ESTILO ESPECÍFICO PARA OBSERVACIÓN Y NOTA --- */
+    
+    .text-label-detail {
+        font-size: 14px;
+        font-weight: 700;
+        color: #94a3b8; /* Gris claro para la etiqueta */
+        text-transform: uppercase;
+        margin-bottom: 4px;
+        display: block;
+    }
+
+    /* LOS DATOS EN NEGRO Y NEGRITA (Sobre un fondo claro para resaltar) */
+    .text-content-detail {
+        font-size: 18px; /* Tamaño grande */
+        font-weight: 900 !important; /* Super negrita */
+        color: #000000 !important; /* NEGRO PURO */
+        background-color: #e2e8f0; /* Fondo gris muy claro para que el negro resalte */
+        padding: 8px 12px;
+        border-radius: 6px;
+        display: inline-block;
+        width: 100%; /* Para que ocupe todo el ancho */
+        line-height: 1.4;
+    }
+
+    /* --- 4. OTROS RESALTES --- */
+    
+    .badge-hora {
+        color: #4ade80 !important;
+        font-family: 'Courier New', monospace;
+        font-weight: 800;
+        font-size: 18px;
+    }
+}
+
+/* Colores de texto técnico */
+.text-green-400 { color: #4ade80 !important; font-weight: 800; font-size: 18px; }
+.text-blue-300 { color: #93c5fd !important; font-weight: 700; }
+.text-orange-400 { color: #fb923c !important; font-weight: 700; }
+
+.btn-consultar {
+    background: #2563eb;
+    color: white !important;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 1.2rem;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+}

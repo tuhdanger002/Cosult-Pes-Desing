@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: #2d2d3a;
+    margin: 0;
+    color: white;
+    font-family: sans-serif;
+}
+/* Quita el resaltado azul/blanco global de PrimeNG para el modo oscuro */
+.p-inputtext:enabled:focus {
+    box-shadow: none !important;
+}
