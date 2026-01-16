@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import {HashLocationStrategy,LocationStrategy} from '@angular/common'
 
 // PrimeNG
 import { SelectModule } from 'primeng/select';
@@ -22,7 +23,8 @@ import { ReportePesDetalle } from '../../models/reporte.model';
     InputTextModule, ButtonModule, TableModule, TabsModule
   ],
   templateUrl: './filtros.html',
-  styleUrls: ['./filtros.css']
+  styleUrls: ['./filtros.css'],
+  providers: [{provide:LocationStrategy,useClass:HashLocationStrategy}]
 })
 export class FiltrosComponent implements OnInit {
 
