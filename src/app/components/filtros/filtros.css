@@ -1,129 +1,153 @@
-/* --- 1. FONDO GLOBAL Y FORMULARIO (ADIÓS AL BLANCO) --- */
+/* --- 1. CONFIGURACIÓN DEL FONDO GENERAL (PÁGINA) --- */
 :host {
     display: block;
-    background-color: #1a1a2e !important;
+    background-color: #1a1a2e !important; /* Azul marino profundo */
     min-height: 100vh;
+    color: #ffffff;
 }
 
-/* Forzar que el contenedor de los filtros sea oscuro */
-.max-w-7xl, .bg-filtros-container {
-    background-color: #252538 !important;
-    border: 1px solid #3f3f46 !important;
-    border-radius: 16px;
+/* --- 2. FORMULARIO DE FILTROS (ADIÓS AL BLANCO) --- */
+.label-estilo {
+    color: #94a3b8;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: block;
 }
 
 :host ::ng-deep {
-    /* Fondo de los inputs, calendarios y selectores */
+    /* Fondo de inputs, calendarios y selectores */
     .p-inputtext, 
-    .p-datepicker, 
+    .p-datepicker-input,
     .p-select,
-    .p-select-label,
-    .p-datepicker-input {
+    .p-select-label {
         background-color: #1a1a2e !important; 
         color: #ffffff !important;
         border: 1px solid #3f3f46 !important;
         font-size: 16px !important;
+        border-radius: 8px !important;
     }
 
     /* Paneles que se despliegan (Dropdowns y Calendarios) */
-    .p-datepicker-panel, .p-select-panel, .p-select-items-wrapper {
+    .p-datepicker-panel, .p-select-panel {
         background-color: #252538 !important;
         color: #ffffff !important;
         border: 1px solid #3f3f46 !important;
     }
 
-    /* --- 2. TABLA Y BLOQUES INTERCALADOS --- */
+    /* --- 3. ESTILO DE LAS PESTAÑAS (VENTANAS) --- */
+    .p-tablist {
+        background: transparent !important;
+        border-bottom: 2px solid #3f3f46 !important;
+        margin-bottom: 1.5rem;
+    }
+
+    .p-tab {
+        background: #1e1e2d !important;
+        color: #94a3b8 !important;
+        border: 1px solid #3f3f46 !important;
+        padding: 1rem 2rem !important;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-right: 4px;
+    }
+
+    .p-tab-active {
+        background: #2563eb !important; /* Azul Edenorte */
+        color: #ffffff !important;
+        border-color: #2563eb !important;
+    }
+
+    /* --- 4. TABLA CON INTERCALADO POR BLOQUES --- */
     
     /* Eliminar fondos por defecto de PrimeNG */
     .p-datatable, .p-datatable-wrapper, .p-datatable-table {
         background-color: transparent !important;
     }
 
+    /* Encabezados de tabla */
     .p-datatable .p-datatable-thead > tr > th {
         background-color: #1e1e2d !important;
         color: #94a3b8 !important;
         border-bottom: 3px solid #2563eb !important;
-        padding: 1.5rem 1rem !important;
-        font-size: 15px !important;
+        padding: 1.2rem !important;
+        font-size: 14px !important;
+        text-align: center;
     }
 
-    /* HERENCIA DE COLOR: Fundamental para que el intercalado funcione */
+    /* HERENCIA DE COLOR: Clave para el intercalado */
     .p-datatable .p-datatable-tbody > tr > td {
         background-color: inherit !important; 
         border: none !important;
         padding: 1rem !important;
-        font-size: 16px !important;
         color: #ffffff;
     }
 
-    /* Colores de los bloques (Debe coincidir con el [class] del HTML) */
-    .bg-grupo-a {
-        background-color: #1a1a2e !important;
-    }
+    /* Colores para los bloques de registros */
+    .bg-grupo-a { background-color: #1a1a2e !important; }
+    .bg-grupo-b { background-color: #252538 !important; }
 
-    .bg-grupo-b {
-        background-color: #252538 !important;
-    }
-
-    /* Separador entre grupos de PES */
+    /* Separador visual de 15px entre cada bloque de PES */
     .row-separator {
         border-bottom: 15px solid #0f172a !important; 
+    }
+
+    /* --- 5. OBSERVACIÓN Y NOTA (NEGRO Y NEGRITA) --- */
+    .text-label-detail {
+        font-size: 13px;
+        font-weight: 800;
+        color: #94a3b8;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+        display: block;
+    }
+
+    .text-content-detail-negro {
+        font-size: 18px !important; 
+        font-weight: 900 !important; /* Negrita intensa */
+        color: #000000 !important;   /* Negro puro */
+        background-color: #e2e8f0 !important; /* Fondo gris claro */
+        padding: 12px 15px;
+        border-radius: 6px;
+        display: block;
+        line-height: 1.4;
+        border-left: 6px solid #2563eb;
     }
 
     /* Paginador oscuro */
     .p-paginator {
         background-color: transparent !important;
         border: none !important;
-    }
-
-    /* --- 3. ESTILO ESPECÍFICO PARA OBSERVACIÓN Y NOTA --- */
-    
-    .text-label-detail {
-        font-size: 14px;
-        font-weight: 700;
-        color: #94a3b8; /* Gris claro para la etiqueta */
-        text-transform: uppercase;
-        margin-bottom: 4px;
-        display: block;
-    }
-
-    /* LOS DATOS EN NEGRO Y NEGRITA (Sobre un fondo claro para resaltar) */
-    .text-content-detail {
-        font-size: 18px; /* Tamaño grande */
-        font-weight: 900 !important; /* Super negrita */
-        color: #000000 !important; /* NEGRO PURO */
-        background-color: #e2e8f0; /* Fondo gris muy claro para que el negro resalte */
-        padding: 8px 12px;
-        border-radius: 6px;
-        display: inline-block;
-        width: 100%; /* Para que ocupe todo el ancho */
-        line-height: 1.4;
-    }
-
-    /* --- 4. OTROS RESALTES --- */
-    
-    .badge-hora {
-        color: #4ade80 !important;
-        font-family: 'Courier New', monospace;
-        font-weight: 800;
-        font-size: 18px;
+        padding: 2rem !important;
     }
 }
 
-/* Colores de texto técnico */
+/* --- 6. COLORES DE RESALTE TÉCNICO --- */
 .text-green-400 { color: #4ade80 !important; font-weight: 800; font-size: 18px; }
 .text-blue-300 { color: #93c5fd !important; font-weight: 700; }
 .text-orange-400 { color: #fb923c !important; font-weight: 700; }
 
+.badge-hora {
+    color: #4ade80 !important;
+    font-family: 'Courier New', monospace;
+    font-weight: 800;
+    font-size: 18px;
+    background-color: #1e1e2d;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
 .btn-consultar {
     background: #2563eb;
-    color: white !important;
+    color: #ffffff !important;
     font-size: 18px;
     font-weight: 700;
-    padding: 1.2rem;
+    padding: 1.1rem;
     border-radius: 10px;
     border: none;
     cursor: pointer;
     width: 100%;
+    text-transform: uppercase;
     box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
 }

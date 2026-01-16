@@ -9,4 +9,5 @@ export interface ReportePesDetalle {
   NOTAS?: string;       // Nombre exacto en SQL
   OBSERVACIÓN?: string; // Nombre exacto en SQL con tilde
   CAUSA?: string;
+  IsDelete?: number;
 }

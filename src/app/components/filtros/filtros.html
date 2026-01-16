@@ -1,94 +1,94 @@
 <div class="p-8 bg-[#1a1a2e] min-h-screen text-white">
+  
   <div class="flex flex-col items-center mb-10 text-center">
-    <img src="assets/logo.png" alt="Logo Edenorte" class="h-24 mb-4 object-contain">
-    <h1 class="text-white text-4xl font-bold uppercase tracking-widest">Gerencia de Energía Predespacho</h1>
-    <div class="w-24 h-1 bg-blue-500 mt-4 rounded-full shadow-[0_0_10px_#3b82f6]"></div>
+    <img src="assets/logo.png" alt="Logo" class="h-20 mb-4">
+    <h1 class="text-3xl font-bold uppercase tracking-widest text-blue-400">Reporte Predespacho</h1>
   </div>
 
-  <div class="max-w-7xl mx-auto bg-[#252538] p-8 rounded-2xl shadow-2xl border border-gray-700 mb-10">
+  <div class="max-w-7xl mx-auto bg-[#252538] p-8 rounded-2xl border border-gray-700 mb-8 shadow-2xl">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
       <div class="flex flex-col gap-2">
         <label class="label-estilo">Número PES</label>
-        <input pInputText type="text" [(ngModel)]="filtros.numPes" placeholder="105" />
+        <input pInputText type="text" [(ngModel)]="filtros.numPes" />
       </div>
       <div class="flex flex-col gap-2">
         <label class="label-estilo">Usuario</label>
-        <input pInputText type="text" [(ngModel)]="filtros.usuario" placeholder="Nombre..." />
-      </div>
-      
-      
-      <div class="flex flex-col gap-2">
-        <label class="label-estilo">Desde (Fecha Inicio)</label>
-        <p-datepicker [(ngModel)]="filtros.desde" [showIcon]="true" appendTo="body" dateFormat="dd/mm/yy"></p-datepicker>
+        <input pInputText type="text" [(ngModel)]="filtros.usuario" />
       </div>
       <div class="flex flex-col gap-2">
-        <label class="label-estilo">Hasta (Fecha Fin)</label>
-        <p-datepicker [(ngModel)]="filtros.hasta" [showIcon]="true" appendTo="body" dateFormat="dd/mm/yy"></p-datepicker>
+        <label class="label-estilo">Desde</label>
+        <p-datepicker [(ngModel)]="filtros.desde" appendTo="body" dateFormat="dd/mm/yy"></p-datepicker>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label class="label-estilo">Hasta</label>
+        <p-datepicker [(ngModel)]="filtros.hasta" appendTo="body" dateFormat="dd/mm/yy"></p-datepicker>
       </div>
     </div>
-
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
-      <div class="flex flex-col gap-2">
-        <label class="label-estilo">Sector</label>
-        <p-select [options]="sectores" [(ngModel)]="filtros.sector" optionLabel="label" placeholder="Seleccione Sector"></p-select>
-      </div>
-      <div class="flex flex-col gap-2">
-        <label class="label-estilo">Gerencia</label>
-        <p-select [options]="gerencias" [(ngModel)]="filtros.gerencia" optionLabel="label" placeholder="Seleccione Gerencia"></p-select>
-      </div>
+      <div class="flex flex-col gap-2"><p-select [options]="sectores" [(ngModel)]="filtros.sector" optionLabel="label" placeholder="Sector"></p-select></div>
+      <div class="flex flex-col gap-2"><p-select [options]="gerencias" [(ngModel)]="filtros.gerencia" optionLabel="label" placeholder="Gerencia"></p-select></div>
       <button (click)="buscar()" class="btn-consultar">CONSULTAR DATOS</button>
     </div>
   </div>
 
- <p-table [value]="resultados" [rows]="10" [paginator]="true" styleClass="custom-table-xl">
-  <ng-template pTemplate="header">
-    <tr>
-      <th>PES</th>
-      <th>USUARIO</th>
-      <th>RESPONSABLE</th>
-      <th>ALCANCE</th>
-      <th>ALIMENTADOR</th>
-      <th>FECHA</th>
-      <th>DESDE</th>
-      <th>HASTA</th>
-      <th>CAUSA</th>
-    </tr>
-  </ng-template>
-  
-  <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
-    <ng-container>
-      <tr [ngClass]="rowIndex % 2 === 0 ? 'bg-grupo-a' : 'bg-grupo-b'" class="main-row">
-        <td class="text-green-400 font-bold text-2xl">{{ item.NUM_PES }}</td>
-        <td class="text-blue-300">{{ item.USUARIO }}</td>
-        <td>{{ item.RESPONSABLE }}</td>
-        <td>{{ item.ALCANCE }}</td>
-        <td class="text-orange-400">{{ item.ALIMENTADOR }}</td>
-        <td>{{ item.FECHA_INICIO | date:'dd-MM-yyyy' }}</td>
-        <td><span class="badge-hora">{{ item.FECHA_INICIO | date:'HH:mm' }}</span></td>
-        <td><span class="badge-hora">{{ item.FECHA_FIN | date:'HH:mm' }}</span></td>
-        <td>{{ item.CAUSA }}</td>
-      </tr>
+  <div class="max-w-full mx-auto">
+    <p-tabs value="0">
+      <p-tablist>
+        <p-tab value="0">APROBADOS ({{aprobados.length}})</p-tab>
+        <p-tab value="1">CANCELADOS ({{cancelados.length}})</p-tab>
+        <p-tab value="2">PENDIENTES ({{pendientes.length}})</p-tab>
+      </p-tablist>
 
-      <tr [ngClass]="rowIndex % 2 === 0 ? 'bg-grupo-a' : 'bg-grupo-b'" class="detail-row">
-        <td colspan="9" class="px-8 py-2">
-          <div class="flex flex-col">
-           <span class="text-label-detail font-bold">OBSERVACIÓN:</span>
-            <span class="text-content-detail" >{{ item['OBSERVACIÓN'] }}
-            </span>
-          </div>
-        </td>
-      </tr>
+      <p-tabpanels>
+        <p-tabpanel value="0">
+          <ng-container *ngTemplateOutlet="tablaTemplate; context: { $implicit: aprobados }"></ng-container>
+        </p-tabpanel>
+        <p-tabpanel value="1">
+          <ng-container *ngTemplateOutlet="tablaTemplate; context: { $implicit: cancelados }"></ng-container>
+        </p-tabpanel>
+        <p-tabpanel value="2">
+          <ng-container *ngTemplateOutlet="tablaTemplate; context: { $implicit: pendientes }"></ng-container>
+        </p-tabpanel>
+      </p-tabpanels>
+    </p-tabs>
+  </div>
+</div>
 
-      <tr [ngClass]="rowIndex % 2 === 0 ? 'bg-grupo-a' : 'bg-grupo-b'" class="detail-row row-separator">
-        <td colspan="9" class="px-8 py-2 pb-6">
-          <div class="flex flex-col border-l-4 border-blue-500 pl-4">
-            <span class="text-label-detail font-bold">NOTAS ADICIONALES:</span>
-            <span class="text-content-detail">
-              {{ item.NOTAS || 'No hay notas' }}
-            </span>
-          </div>
-        </td>
-      </tr>
-    </ng-container>
-  </ng-template>
-</p-table>
+<ng-template #tablaTemplate let-data>
+  <div class="rounded-xl border border-gray-700 overflow-hidden bg-[#1a1a2e]">
+    <p-table [value]="data" [rows]="10" [paginator]="true" styleClass="custom-table-xl">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>PES</th><th>USUARIO</th><th>RESPONSABLE</th><th>ALIMENTADOR</th><th>FECHA</th><th>INICIO</th><th>FIN</th><th>CAUSA</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+        <tr [class.bg-grupo-a]="rowIndex % 2 === 0" [class.bg-grupo-b]="rowIndex % 2 !== 0">
+          <td class="text-green-400 font-bold">{{ item.NUM_PES }}</td>
+          <td class="text-blue-300 font-semibold">{{ item.USUARIO }}</td>
+          <td>{{ item.RESPONSABLE }}</td>
+          <td class="text-orange-400 font-bold">{{ item.ALIMENTADOR }}</td>
+          <td>{{ item.FECHA_INICIO | date:'dd/MM/yyyy' }}</td>
+          <td><span class="badge-hora">{{ item.FECHA_INICIO | date:'HH:mm' }}</span></td>
+          <td><span class="badge-hora">{{ item.FECHA_FIN | date:'HH:mm' }}</span></td>
+          <td>{{ item.CAUSA }}</td>
+        </tr>
+
+        <tr [class.bg-grupo-a]="rowIndex % 2 === 0" [class.bg-grupo-b]="rowIndex % 2 !== 0">
+          <td colspan="8" class="px-10 py-2">
+            <span class="text-label-detail font-bold">OBSERVACIÓN:</span>
+            <p><span class="text-content-detail-negro">{{ item['OBSERVACIÓN'] || 'Sin Observación' }}</span></p>
+          </td>
+        </tr>
+
+        <tr [class.bg-grupo-a]="rowIndex % 2 === 0" [class.bg-grupo-b]="rowIndex % 2 !== 0" class="row-separator">
+          <td colspan="8" class="px-10 py-2 pb-6">
+            <span class="text-label-detail font-bold">NOTAS:</span>
+            <p><span class="text-content-detail-negro">{{ item.NOTAS || 'Sin Notas' }}</span></p>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</ng-template>
