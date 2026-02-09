@@ -1,17 +1,18 @@
 import { ApplicationConfig } from '@angular/core';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeng/themes/aura'; // Importa el tema Aura
+import Aura from '@primeng/themes/aura'; // O el preset que prefieras: Aura, Lara o Nora
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    // ... tus otros providers (http, router)
-    providePrimeNG({
-      theme: {
-        preset: Aura,
-        options: {
-          darkModeSelector: '.my-app-dark' // Esto activará los estilos oscuros
-        }
-      }
-    })
-  ]
+    providers: [
+        provideAnimationsAsync(),
+        providePrimeNG({ 
+            theme: {
+                preset: Aura,
+                options: {
+                    darkModeSelector: '.my-app-dark' // Esto activará el modo oscuro
+                }
+            }
+        })
+    ]
 };

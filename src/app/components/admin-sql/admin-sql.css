@@ -1,0 +1,22 @@
+Asegura que los componentes de PrimeNG ocupen su espacio
+:host {
+    display: block;
+    width: 100%;
+}
+
+.custom-dark-table {
+    margin-top: 20px;
+}
+
+/* Forzar el estilo de la cabecera si desaparece */
+::ng-deep .p-datatable .p-datatable-thead > tr > th {
+    background: #21262d !important;
+    color: #c9d1d9 !important;
+    padding: 1rem;
+}
+
+/* Estilo para que las filas no se vean pegadas */
+::ng-deep .p-datatable .p-datatable-tbody > tr {
+    background: #161b22 !important;
+    color: #ecf0f1 !important;
+}
