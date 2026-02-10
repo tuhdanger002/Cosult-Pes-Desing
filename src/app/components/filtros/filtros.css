@@ -6,13 +6,18 @@
     --p-tabs-tab-active-border-color: #60a5fa !important;
 }
 
-::ng-deep .p-tablist, 
+::ng-deep .p-tablist,
 ::ng-deep .p-tabpanels {
     background: #0d1425 !important;
 }
 
-.bg-dark-a { background-color: #182847; }
-.bg-dark-b { background-color: #44516d; }
+.bg-dark-a {
+    background-color: #182847;
+}
+
+.bg-dark-b {
+    background-color: #44516d;
+}
 
 /* --- 2. TABS (PESTAÑAS) - BLANCO TOTAL --- */
 /* Estado normal */
@@ -26,7 +31,7 @@
 /* Estado Seleccionado: Forzamos blanco a TODO lo que esté adentro */
 ::ng-deep .custom-tabs .p-tablist-tab-selected,
 ::ng-deep .custom-tabs .p-tablist-tab-selected * {
-    color: #ffffff !important; 
+    color: #ffffff !important;
     border-bottom-color: #60a5fa !important;
 }
 
@@ -38,8 +43,8 @@
     text-transform: uppercase;
 }
 
-::ng-deep .custom-input, 
-::ng-deep .custom-dp .p-inputtext, 
+::ng-deep .custom-input,
+::ng-deep .custom-dp .p-inputtext,
 ::ng-deep .custom-select {
     background: #0f172a !important;
     border: 1px solid #334155 !important;
@@ -50,13 +55,13 @@
 
 /* --- 4. TABLA (LIMPIEZA DE BORDES INTERNOS) --- */
 ::ng-deep .custom-table-dark,
-::ng-deep .custom-table-dark .p-datatable-thead > tr > th,
-::ng-deep .custom-table-dark .p-datatable-tbody > tr > td {
+::ng-deep .custom-table-dark .p-datatable-thead>tr>th,
+::ng-deep .custom-table-dark .p-datatable-tbody>tr>td {
     border: none !important;
 }
 
 /* Encabezado Claro */
-::ng-deep .custom-table-dark .p-datatable-thead > tr > th {
+::ng-deep .custom-table-dark .p-datatable-thead>tr>th {
     background: #ececec !important;
     color: #232425 !important;
     padding: 15px !important;
@@ -64,7 +69,7 @@
 }
 
 /* Cuerpo de Tabla */
-::ng-deep .custom-table-dark .p-datatable-tbody > tr  {
+::ng-deep .custom-table-dark .p-datatable-tbody>tr {
     color: #cbd5e1 !important;
 }
 
@@ -97,14 +102,151 @@
 }
 
 .btn-consultar-moderno:active {
-    transform: scale(0.95); /* El botón se encoge un poquito al presionarlo */
+    transform: scale(0.95);
+    /* El botón se encoge un poquito al presionarlo */
     background: linear-gradient(to right, #1d4ed8, #1e40af);
 }
 
+/* --- ESTILOS V3 (REPLICANDO IMAGEN) --- */
+.bg-card-v3 {
+    background-color: #1c2237;
+}
+
+.custom-input-v3,
+::ng-deep .custom-dp-v3 .p-inputtext,
+::ng-deep .custom-select-v3 {
+    background: #ffffff !important;
+    border: 1px solid #d1d5db !important;
+    color: #1f2937 !important;
+    height: 44px !important;
+    border-radius: 6px !important;
+    padding: 0 12px !important;
+    width: 100% !important;
+    font-size: 0.95rem !important;
+    font-weight: 400 !important;
+}
+
+::ng-deep .custom-select-v3 .p-select-label {
+    color: #1f2937 !important;
+    display: flex !important;
+    align-items: center !important;
+    padding-left: 0 !important;
+}
+
+::ng-deep .custom-select-v3 .p-select-placeholder {
+    color: #9ca3af !important;
+}
+
+::ng-deep .custom-dp-v3 .p-datepicker-trigger {
+    background: #ffffff !important;
+    border: 1px solid #d1d5db !important;
+    border-left: none !important;
+    color: #6b7280 !important;
+    border-radius: 0 6px 6px 0 !important;
+    height: 44px !important;
+}
+
+.btn-consultar-v3 {
+    background: #2b6df5 !important;
+    color: white !important;
+    height: 44px !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    font-size: 0.9rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    border: none !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.btn-consultar-v3:hover {
+    background: #1e4bd8 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.btn-consultar-v3:active {
+    transform: scale(0.98);
+}
+
+/* --- NUEVOS ESTILOS V2 (PREMIUM) --- */
+
+.custom-input-v2,
+::ng-deep .custom-dp-v2 .p-inputtext,
+::ng-deep .custom-select-v2 {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    height: 50px !important;
+    border-radius: 12px !important;
+    padding: 0 16px !important;
+    width: 100% !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.custom-input-v2:focus,
+::ng-deep .custom-dp-v2 .p-inputtext:enabled:focus,
+::ng-deep .custom-select-v2:enabled:focus {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(96, 165, 250, 0.5) !important;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15) !important;
+    outline: none !important;
+}
+
+::ng-deep .custom-select-v2 .p-select-label {
+    display: flex !important;
+    align-items: center !important;
+    color: white !important;
+}
+
+::ng-deep .custom-dp-v2 .p-datepicker-trigger {
+    background: transparent !important;
+    border: none !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.btn-consultar-v2 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    padding: 0 32px;
+    height: 50px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4);
+}
+
+.btn-consultar-v2:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 20px 30px -10px rgba(37, 99, 235, 0.6);
+    background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+}
+
+.btn-consultar-v2:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.btn-consultar-v2 i {
+    font-size: 1.1rem;
+}
+
 .badge-hora {
-    background: #1e293b;
-    padding: 2px 8px;
-    border-radius: 4px;
-    border: 1px solid #334155;
+    background: rgba(30, 41, 59, 0.6);
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
     color: #94a3b8;
+    font-size: 0.85rem;
 }

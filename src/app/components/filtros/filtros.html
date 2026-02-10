@@ -1,72 +1,72 @@
 <div class="p-8 bg-[#061024b9] min-h-screen text-white">
 
- 
 
-  <div class="flex flex-col items-center mb-10 text-center">
 
-    <img src="assets/logo.png" alt="Logo" class="h-30 mb-4 drop-shadow-[0_0_08px_rgba(255,255,255,0.2)]">
+  <!-- 1. HEADER CENTRALIZADO (ESTILO IMAGEN) -->
+  <header class="flex flex-col items-center mb-8 text-center pt-6">
+    <img src="assets/logo.png" alt="Logo" class="h-20 mb-4">
+    <div class="flex flex-col items-center">
+      <h1 class="text-3xl font-bold tracking-tight text-white uppercase italic">
+        GERENCIA DE ENERGÍA PREDESPACHO
+      </h1>
+      <div class="h-1 w-20 bg-blue-600 mt-2 rounded-full"></div>
+    </div>
+  </header>
 
-    <h1 class="text-3xl font-bold uppercase tracking-widest text-white-400">GERENCIA DE ENERGIA</h1>
-    <h1 class="text-2xl font-bold uppercase tracking-widest text-white-400">Reporte PES</h1>
-     
+  <!-- 2. SECCIÓN DE FILTROS (ESTILO IMAGEN) -->
+  <div
+    class="max-w-7xl mx-auto bg-[#1c2237] p-8 rounded-2xl border border-gray-700/30 mb-8 shadow-2xl relative overflow-hidden">
+
+    <!-- Row 1: 4 columns -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+      <div class="flex flex-col gap-2">
+        <label class="text-xs font-semibold text-gray-400">Número PES</label>
+        <input pInputText type="text" [(ngModel)]="filtros.numPes" class="custom-input-v3" placeholder="105" />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label class="text-xs font-semibold text-gray-400">Usuario</label>
+        <input pInputText type="text" [(ngModel)]="filtros.usuario" class="custom-input-v3" placeholder="Nombre..." />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label class="text-xs font-semibold text-gray-400">Desde (Fecha Inicio)</label>
+        <p-datepicker [(ngModel)]="filtros.desde" [showIcon]="true" appendTo="body" dateFormat="dd/mm/yy"
+          class="custom-dp-v3"></p-datepicker>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label class="text-xs font-semibold text-gray-400">Hasta (Fecha Fin)</label>
+        <p-datepicker [(ngModel)]="filtros.hasta" [showIcon]="true" appendTo="body" dateFormat="dd/mm/yy"
+          class="custom-dp-v3"></p-datepicker>
+      </div>
+    </div>
+
+    <!-- Row 2: Sector, Gerencia, Button -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+      <div class="md:col-span-4 flex flex-col gap-2">
+        <label class="text-xs font-semibold text-gray-400">Sector</label>
+        <p-select [options]="sectores" [(ngModel)]="filtros.sector" optionLabel="label" placeholder="Seleccione Sector"
+          class="custom-select-v3 w-full"></p-select>
+      </div>
+
+      <div class="md:col-span-4 flex flex-col gap-2">
+        <label class="text-xs font-semibold text-gray-400">Gerencia</label>
+        <p-select [options]="gerencias" [(ngModel)]="filtros.gerencia" optionLabel="label"
+          placeholder="Seleccione Gerencia" class="custom-select-v3 w-full"></p-select>
+      </div>
+
+      <div class="md:col-span-4 mt-2 md:mt-0">
+        <button type="button" (click)="buscar()" class="btn-consultar-v3 w-full">
+          CONSULTAR DATOS
+        </button>
+      </div>
+    </div>
 
   </div>
 
 
-
-  <div class="max-w-7xl mx-auto bg-[#0a1120] p-8 rounded-2xl border border-gray-800 mb-8 shadow-2xl">
-
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-
-      <div class="flex flex-col gap-2">
-
-        <label class="label-estilo">Número PES</label>
-
-        <input pInputText type="text" [(ngModel)]="filtros.numPes" class="custom-input" placeholder="0000"/>
-
-      </div>
-
-      <div class="flex flex-col gap-2">
-
-        <label class="label-estilo">Usuario</label>
-
-        <input pInputText type="text" [(ngModel)]="filtros.usuario" class="custom-input" placeholder="EN00000" />
-
-      </div>
-
-      <div class="flex flex-col gap-2">
-
-        <label class="label-estilo">Desde</label>
-
-        <p-datepicker [(ngModel)]="filtros.desde" [showIcon]="true" appendTo="body" dateFormat="dd/mm/yy" class="custom-dp"></p-datepicker>
-
-      </div>
-
-      <div class="flex flex-col gap-2">
-
-        <label class="label-estilo">Hasta</label>
-
-        <p-datepicker [(ngModel)]="filtros.hasta" [showIcon]="true"  appendTo="body" dateFormat="dd/mm/yy" class="custom-dp"></p-datepicker>
-
-      </div>
-
-    </div>
-
-   
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
-
-      <div class="flex flex-col gap-2"><p-select [options]="sectores" [(ngModel)]="filtros.sector" optionLabel="label" placeholder="Sector" class="custom-select"></p-select></div>
-
-   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-end"></div>
-<button type="button" (click)="buscar()" class="btn-consultar-moderno">
-  <i class="pi pi-search mr-2"></i> CONSULTAR DATOS
-</button>
-    </div>
-  </div>
-
-
-<div class="max-w-full mx-auto custom-tabs">
+  <div class="max-w-full mx-auto custom-tabs">
     <p-tabs [(value)]="activeTab">
       <p-tablist>
         <p-tab value="0">APROBADOS ({{aprobados.length}})</p-tab>
@@ -115,7 +115,14 @@
 
         <tr class="text-xl">
 
-          <th>PES</th><th>USUARIO</th><th>RESPONSABLE</th><th>ALIMENTADOR</th><th>FECHA</th><th>INICIO</th><th>FIN</th><th>CAUSA</th>
+          <th>PES</th>
+          <th>USUARIO</th>
+          <th>RESPONSABLE</th>
+          <th>ALIMENTADOR</th>
+          <th>FECHA</th>
+          <th>INICIO</th>
+          <th>FIN</th>
+          <th>CAUSA</th>
 
         </tr>
 
@@ -161,7 +168,8 @@
 
 
 
-        <tr [class.bg-dark-a]="rowIndex % 2 === 0" [class.bg-dark-b]="rowIndex % 2 !== 0" class="border-b border-gray-800">
+        <tr [class.bg-dark-a]="rowIndex % 2 === 0" [class.bg-dark-b]="rowIndex % 2 !== 0"
+          class="border-b border-gray-800">
 
           <td colspan="8" class="px-10 py-2 pb-6">
 

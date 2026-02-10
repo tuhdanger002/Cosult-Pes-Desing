@@ -1,18 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* 1. IMPORTACIÓN DE PRIMEFLEX */
+
 /* Probamos con la ruta relativa que suele funcionar mejor en Angular moderno */
 @import "primeflex/primeflex.css";
 
 /* 2. VARIABLES DE DISEÑO EDENORTE */
 :root {
-    --bg-dark: #0d1117;       /* Fondo profundo que ves ahora */
-    --bg-card: #161b22;       /* Fondo de las tablas y filtros */
-    --border-color: #30363d;   /* Bordes estilo GitHub/Edenorte */
-    --text-color: #f0f6fc;    /* Texto casi blanco para que se lea bien */
-    --accent-blue: #58a6ff;   /* Azul para destacar elementos */
+    --bg-dark: #0d1117;
+    /* Fondo profundo que ves ahora */
+    --bg-card: #161b22;
+    /* Fondo de las tablas y filtros */
+    --border-color: #30363d;
+    /* Bordes estilo GitHub/Edenorte */
+    --text-color: #f0f6fc;
+    /* Texto casi blanco para que se lea bien */
+    --accent-blue: #58a6ff;
+    /* Azul para destacar elementos */
 }
 
 /* 3. BASE DEL DOCUMENTO */
-html, body {
+html,
+body {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -21,21 +32,22 @@ html, body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
+
 /* 4. CORRECCIÓN PARA COMPONENTES PRIMENG EN MODO OSCURO */
 /* Esto asegura que las tablas no sean invisibles */
 .p-datatable {
-    background-color: var(--bg-card) !important;
+    /* background-color: var(--bg-card) !important; */
     border: 1px solid var(--border-color) !important;
 }
 
-.p-datatable .p-datatable-thead > tr > th {
-    background-color: #21262d !important;
+.p-datatable .p-datatable-thead>tr>th {
+    /* background-color: #21262d !important; */
     color: var(--accent-blue) !important;
     border-bottom: 1px solid var(--border-color) !important;
 }
 
-.p-datatable .p-datatable-tbody > tr {
-    background-color: var(--bg-card) !important;
+.p-datatable .p-datatable-tbody>tr {
+    /* background-color: var(--bg-card) !important; */
     color: var(--text-color) !important;
 }
 
@@ -45,14 +57,6 @@ html, body {
     border: 1px solid var(--border-color);
     border-radius: 6px;
     padding: 1.5rem;
-}
-
-/* Esto forzará a que el contenido se vea sí o sí */
-router-outlet + * {
-    display: block !important;
-    min-height: 100vh !important;
-    background-color: #161b22 !important; /* Un gris oscuro para notar la diferencia con el negro total */
-    border: 5px solid red !important;   /* Si ves un marco rojo, el componente SÍ cargó */
 }
 
 /* Forzar que todo texto dentro del componente sea blanco */
