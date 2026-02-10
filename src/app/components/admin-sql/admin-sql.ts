@@ -13,6 +13,7 @@ import { SelectModule } from 'primeng/select';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { TabsModule } from 'primeng/tabs';
 
 import { Circuito } from '../../models/circuito.model';
 import { CircuitoService } from '../../services/circuito.service';
@@ -32,13 +33,21 @@ import { CircuitoService } from '../../services/circuito.service';
     SelectModule,
     IconFieldModule,
     InputIconModule,
-    MultiSelectModule
+    MultiSelectModule,
+    TabsModule
   ],
   templateUrl: './admin-sql.html',
   styleUrls: ['./admin-sql.css']
 })
 export class AdminSqlComponent implements OnInit {
   circuitos: Circuito[] = [];
+
+  // Listas por estado
+  activos: Circuito[] = [];
+  inactivos: Circuito[] = [];
+  eliminados: Circuito[] = [];
+  nuevos: Circuito[] = [];
+
   displayModal: boolean = false;
 
   statuses = [
@@ -64,9 +73,17 @@ export class AdminSqlComponent implements OnInit {
     this._circuitoService.getCircuitos().subscribe({
       next: (data) => {
         this.circuitos = data;
+        this.categorizarCircuitos(data);
       },
       error: (err) => console.error('Error al obtener circuitos:', err)
     });
+  }
+
+  categorizarCircuitos(data: Circuito[]): void {
+    this.activos = data.filter(c => c.estado?.toUpperCase() === 'ACTIVO');
+    this.inactivos = data.filter(c => c.estado?.toUpperCase() === 'INACTIVO');
+    this.eliminados = data.filter(c => c.estado?.toUpperCase() === 'ELIMINADO');
+    this.nuevos = data.filter(c => c.estado?.toUpperCase() === 'NUEVO');
   }
 
   clear(table: Table) {

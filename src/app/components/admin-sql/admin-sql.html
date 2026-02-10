@@ -16,70 +16,106 @@
       styleClass="p-button-outlined p-button-sm"></p-button>
   </div>
 
-  <div class="card shadow-4" style="background: #161b22; border: 1px solid #30363d; border-radius: 8px;">
-    <p-table #dt1 [value]="circuitos" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
-      [globalFilterFields]="['smt', 'nombre', 'estado']" styleClass="p-datatable-sm custom-dark-table">
+  <div class="max-w-full mx-auto" style="margin-top: 2rem;">
+    <p-tabs value="0">
+      <p-tablist class="custom-admin-tabs">
+        <p-tab value="0">ACTIVOS ({{activos.length}})</p-tab>
+        <p-tab value="1">INACTIVOS ({{inactivos.length}})</p-tab>
+        <p-tab value="2">ELIMINADOS ({{eliminados.length}})</p-tab>
+        <p-tab value="3">NUEVOS ({{nuevos.length}})</p-tab>
+      </p-tablist>
 
-      <ng-template #caption>
-        <div class="flex justify-content-between align-items-center">
-          <p-button label="Limpiar Filtros" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt1)"
-            styleClass="p-button-sm"></p-button>
-
-          <p-iconfield iconPosition="left">
-            <p-inputicon class="pi pi-search"></p-inputicon>
-            <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
-              placeholder="Búsqueda global..." class="p-inputtext-sm bg-gray-900 text-gray-100 border-gray-700" />
-          </p-iconfield>
-        </div>
-      </ng-template>
-
-      <ng-template #header>
-        <tr>
-          <th style="min-width:10rem">
-            <div class="flex items-center justify-between">
-              SMT
-              <p-columnFilter type="text" field="smt" display="menu" />
-            </div>
-          </th>
-          <th style="min-width:20rem">
-            <div class="flex items-center justify-between">
-              Nombre
-              <p-columnFilter type="text" field="nombre" display="menu" />
-            </div>
-          </th>
-          <th style="min-width:12rem">
-            <div class="flex items-center justify-between">
-              Estado
-              <p-columnFilter field="estado" matchMode="equals" display="menu">
-                <ng-template #filter let-value let-filter="filterCallback">
-                  <p-select [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)"
-                    placeholder="Seleccione" [appendTo]="'body'" class="w-full">
-                    <ng-template let-option #item>
-                      <p-tag [value]="option.value" [severity]="getSeverity(option.value)"></p-tag>
-                    </ng-template>
-                  </p-select>
-                </ng-template>
-              </p-columnFilter>
-            </div>
-          </th>
-          <th style="width: 80px;" class="text-center">Acciones</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-circuito>
-        <tr style="background: #161b22; color: #ecf0f1;">
-          <td class="font-bold text-blue-300">{{circuito.smt}}</td>
-          <td>{{circuito.nombre}}</td>
-          <td>
-            <p-tag [value]="circuito.estado || 'N/A'" [severity]="getSeverity(circuito.estado)"></p-tag>
-          </td>
-          <td class="text-center">
-            <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-info p-button-text"
-              (click)="abrirEditar(circuito)"></button>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
+      <p-tabpanels>
+        <p-tabpanel value="0">
+          <ng-container *ngTemplateOutlet="tablaTemplate; context: { $implicit: activos }"></ng-container>
+        </p-tabpanel>
+        <p-tabpanel value="1">
+          <ng-container *ngTemplateOutlet="tablaTemplate; context: { $implicit: inactivos }"></ng-container>
+        </p-tabpanel>
+        <p-tabpanel value="2">
+          <ng-container *ngTemplateOutlet="tablaTemplate; context: { $implicit: eliminados }"></ng-container>
+        </p-tabpanel>
+        <p-tabpanel value="3">
+          <ng-container *ngTemplateOutlet="tablaTemplate; context: { $implicit: nuevos }"></ng-container>
+        </p-tabpanel>
+      </p-tabpanels>
+    </p-tabs>
   </div>
+
+  <!-- TEMPLATE ÚNICO PARA LA TABLA -->
+  <ng-template #tablaTemplate let-data>
+    <div class="card shadow-4" style="background: #161b22; border: 1px solid #30363d; border-radius: 8px;">
+      <p-table #dt [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+        [globalFilterFields]="['smt', 'nombre', 'estado']" styleClass="p-datatable-sm custom-dark-table">
+
+        <ng-template #caption>
+          <div class="flex justify-content-between align-items-center">
+            <p-button label="Limpiar Filtros" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt)"
+              styleClass="p-button-sm"></p-button>
+
+            <p-iconfield iconPosition="left">
+              <p-inputicon class="pi pi-search"></p-inputicon>
+              <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+                placeholder="Búsqueda global..." class="p-inputtext-sm bg-gray-900 text-gray-100 border-gray-700" />
+            </p-iconfield>
+          </div>
+        </ng-template>
+
+        <ng-template #header>
+          <tr>
+            <th style="min-width:10rem">
+              <div class="flex items-center justify-between">
+                SMT
+                <p-columnFilter type="text" field="smt" display="menu" />
+              </div>
+            </th>
+            <th style="min-width:20rem">
+              <div class="flex items-center justify-between">
+                Nombre
+                <p-columnFilter type="text" field="nombre" display="menu" />
+              </div>
+            </th>
+            <th style="min-width:12rem">
+              <div class="flex items-center justify-between">
+                Estado
+                <p-columnFilter field="estado" matchMode="equals" display="menu">
+                  <ng-template #filter let-value let-filter="filterCallback">
+                    <p-select [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)"
+                      placeholder="Seleccione" [appendTo]="'body'" class="w-full">
+                      <ng-template let-option #item>
+                        <p-tag [value]="option.value" [severity]="getSeverity(option.value)"></p-tag>
+                      </ng-template>
+                    </p-select>
+                  </ng-template>
+                </p-columnFilter>
+              </div>
+            </th>
+            <th style="width: 80px;" class="text-center">Acciones</th>
+          </tr>
+        </ng-template>
+
+        <ng-template #body let-circuito>
+          <tr style="background: #161b22; color: #ecf0f1;">
+            <td class="font-bold text-blue-300">{{circuito.smt}}</td>
+            <td>{{circuito.nombre}}</td>
+            <td>
+              <p-tag [value]="circuito.estado || 'N/A'" [severity]="getSeverity(circuito.estado)"></p-tag>
+            </td>
+            <td class="text-center">
+              <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" severity="info"
+                (click)="abrirEditar(circuito)"></p-button>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template #emptymessage>
+          <tr>
+            <td colspan="4" class="text-center p-4 text-gray-500 italic">No se encontraron registros.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </ng-template>
 
   <p-dialog [(visible)]="displayModal" [header]="'Editar: ' + circuitoSeleccionado.smt" [modal]="true"
     [style]="{width: '500px'}" styleClass="dark-dialog">
