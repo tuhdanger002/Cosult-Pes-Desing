@@ -32,7 +32,7 @@ import { CircuitoService } from '../../services/circuito.service';
 export class AdminSqlComponent implements OnInit {
   circuitos: Circuito[] = [];
   displayModal: boolean = false;
-  
+
   circuitoSeleccionado: Circuito = {
     smt: '',
     nombre: '',
@@ -40,7 +40,7 @@ export class AdminSqlComponent implements OnInit {
     acuerdos_Pes: ''
   };
 
-  constructor(private _circuitoService: CircuitoService) {}
+  constructor(private _circuitoService: CircuitoService) { }
 
   ngOnInit(): void {
     this.obtenerCircuitos();
@@ -48,8 +48,8 @@ export class AdminSqlComponent implements OnInit {
 
   obtenerCircuitos(): void {
     this._circuitoService.getCircuitos().subscribe({
-      next: (data) => { 
-        this.circuitos = data; 
+      next: (data) => {
+        this.circuitos = data;
       },
       error: (err) => console.error('Error al obtener circuitos:', err)
     });
@@ -59,9 +59,10 @@ export class AdminSqlComponent implements OnInit {
   getSeverity(estado: string | undefined): "success" | "secondary" | "info" | "warn" | "danger" | "contrast" | undefined {
     switch (estado?.toUpperCase()) {
       case 'ACTIVO': return 'success';
-      case 'INACTIVO': return 'danger';
-      case 'PENDIENTE': return 'warn'; // <--- 'warn' es el correcto para amarillo
-      default: return 'info';
+      case 'INACTIVO': return 'warn';
+      case 'ELIMINADO': return 'danger';
+      case 'PENDIENTE': return 'info';
+      default: return 'secondary';
     }
   }
 
