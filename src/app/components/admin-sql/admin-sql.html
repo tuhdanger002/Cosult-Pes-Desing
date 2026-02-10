@@ -1,10 +1,19 @@
 <div class="container-fluid p-4" style="background-color: #0d1117; min-height: 100vh;">
-  
-  <div class="flex justify-content-between align-items-center mb-4 border-bottom-1 border-gray-700 pb-3">
-    <div>
-      <h2 class="text-white m-0"><i class="pi pi-database mr-2 text-blue-400"></i>Gestión de Circuitos</h2>
+
+  <!-- 1. HEADER CENTRALIZADO (ESTILO IMAGEN) -->
+  <header class="flex flex-col items-center mb-8 text-center pt-6">
+    <img src="assets/logo.png" alt="Logo" class="h-32 mb-4">
+    <div class="flex flex-col items-center">
+      <h1 class="text-3xl font-bold tracking-tight text-white uppercase italic">
+        GESTIÓN DE CIRCUITOS - PREDESPACHO
+      </h1>
+      <div class="h-1 w-20 bg-blue-600 mt-2 rounded-full"></div>
     </div>
-    <p-button label="Refrescar" icon="pi pi-refresh" (onClick)="obtenerCircuitos()" styleClass="p-button-outlined p-button-sm"></p-button>
+  </header>
+
+  <div class="flex justify-content-end mb-4 border-bottom-1 border-gray-700 pb-3">
+    <p-button label="Refrescar" icon="pi pi-refresh" (onClick)="obtenerCircuitos()"
+      styleClass="p-button-outlined p-button-sm"></p-button>
   </div>
 
   <div class="card shadow-4" style="background: #161b22; border: 1px solid #30363d; border-radius: 8px;">
@@ -25,18 +34,21 @@
             <p-tag [value]="circuito.estado || 'N/A'" [severity]="getSeverity(circuito.estado)"></p-tag>
           </td>
           <td class="text-center">
-            <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-info p-button-text" (click)="abrirEditar(circuito)"></button>
+            <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-info p-button-text"
+              (click)="abrirEditar(circuito)"></button>
           </td>
         </tr>
       </ng-template>
     </p-table>
   </div>
 
-  <p-dialog [(visible)]="displayModal" [header]="'Editar: ' + circuitoSeleccionado.smt" [modal]="true" [style]="{width: '500px'}" styleClass="dark-dialog">
+  <p-dialog [(visible)]="displayModal" [header]="'Editar: ' + circuitoSeleccionado.smt" [modal]="true"
+    [style]="{width: '500px'}" styleClass="dark-dialog">
     <div class="grid p-fluid mt-2">
       <div class="col-12 field">
         <label class="text-gray-300 font-bold mb-2 block">Acuerdos PES</label>
-        <textarea pTextarea [(ngModel)]="circuitoSeleccionado.acuerdos_Pes" rows="5" class="w-full bg-gray-900 text-white border-gray-700"></textarea>
+        <textarea pTextarea [(ngModel)]="circuitoSeleccionado.acuerdos_Pes" rows="5"
+          class="w-full bg-gray-900 text-white border-gray-700"></textarea>
       </div>
       <div class="col-6 field">
         <label class="text-gray-300 font-bold mb-2 block">Estado</label>
@@ -44,7 +56,8 @@
       </div>
     </div>
     <ng-template pTemplate="footer">
-      <p-button label="Cancelar" icon="pi pi-times" (onClick)="displayModal=false" styleClass="p-button-text p-button-secondary"></p-button>
+      <p-button label="Cancelar" icon="pi pi-times" (onClick)="displayModal=false"
+        styleClass="p-button-text p-button-secondary"></p-button>
       <p-button label="Guardar" icon="pi pi-check" (onClick)="actualizarCircuito()"></p-button>
     </ng-template>
   </p-dialog>

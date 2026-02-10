@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment';
 export class ReporteService {
 
   // La URL base se toma automáticamente del archivo de environment
-  private baseUrl = environment.apiUrl;
+  private baseUrl = `${environment.apiUrl}Reportes`;
 
   constructor(private http: HttpClient) { }
 
