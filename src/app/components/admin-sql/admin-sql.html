@@ -17,13 +17,52 @@
   </div>
 
   <div class="card shadow-4" style="background: #161b22; border: 1px solid #30363d; border-radius: 8px;">
-    <p-table [value]="circuitos" [paginator]="true" [rows]="10" styleClass="p-datatable-sm custom-dark-table">
-      <ng-template pTemplate="header">
+    <p-table #dt1 [value]="circuitos" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+      [globalFilterFields]="['smt', 'nombre', 'estado']" styleClass="p-datatable-sm custom-dark-table">
+
+      <ng-template #caption>
+        <div class="flex justify-content-between align-items-center">
+          <p-button label="Limpiar Filtros" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt1)"
+            styleClass="p-button-sm"></p-button>
+
+          <p-iconfield iconPosition="left">
+            <p-inputicon class="pi pi-search"></p-inputicon>
+            <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+              placeholder="Búsqueda global..." class="p-inputtext-sm bg-gray-900 text-gray-100 border-gray-700" />
+          </p-iconfield>
+        </div>
+      </ng-template>
+
+      <ng-template #header>
         <tr>
-          <th>SMT</th>
-          <th>Nombre</th>
-          <th>Estado</th>
-          <th style="width: 80px;">Acciones</th>
+          <th style="min-width:10rem">
+            <div class="flex items-center justify-between">
+              SMT
+              <p-columnFilter type="text" field="smt" display="menu" />
+            </div>
+          </th>
+          <th style="min-width:20rem">
+            <div class="flex items-center justify-between">
+              Nombre
+              <p-columnFilter type="text" field="nombre" display="menu" />
+            </div>
+          </th>
+          <th style="min-width:12rem">
+            <div class="flex items-center justify-between">
+              Estado
+              <p-columnFilter field="estado" matchMode="equals" display="menu">
+                <ng-template #filter let-value let-filter="filterCallback">
+                  <p-select [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)"
+                    placeholder="Seleccione" [appendTo]="'body'" class="w-full">
+                    <ng-template let-option #item>
+                      <p-tag [value]="option.value" [severity]="getSeverity(option.value)"></p-tag>
+                    </ng-template>
+                  </p-select>
+                </ng-template>
+              </p-columnFilter>
+            </div>
+          </th>
+          <th style="width: 80px;" class="text-center">Acciones</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-circuito>

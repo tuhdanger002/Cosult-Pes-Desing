@@ -3,12 +3,16 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 // PrimeNG 18+ Imports
-import { TableModule } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
 import { TagModule } from 'primeng/tag';
+import { SelectModule } from 'primeng/select';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 import { Circuito } from '../../models/circuito.model';
 import { CircuitoService } from '../../services/circuito.service';
@@ -23,8 +27,12 @@ import { CircuitoService } from '../../services/circuito.service';
     ButtonModule,
     DialogModule,
     InputTextModule,
-    TextareaModule, // <--- CORRECCIÓN AQUÍ
-    TagModule
+    TextareaModule,
+    TagModule,
+    SelectModule,
+    IconFieldModule,
+    InputIconModule,
+    MultiSelectModule
   ],
   templateUrl: './admin-sql.html',
   styleUrls: ['./admin-sql.css']
@@ -32,6 +40,12 @@ import { CircuitoService } from '../../services/circuito.service';
 export class AdminSqlComponent implements OnInit {
   circuitos: Circuito[] = [];
   displayModal: boolean = false;
+
+  statuses = [
+    { label: 'ACTIVO', value: 'ACTIVO' },
+    { label: 'INACTIVO', value: 'INACTIVO' },
+    { label: 'ELIMINADO', value: 'ELIMINADO' }
+  ];
 
   circuitoSeleccionado: Circuito = {
     smt: '',
@@ -53,6 +67,10 @@ export class AdminSqlComponent implements OnInit {
       },
       error: (err) => console.error('Error al obtener circuitos:', err)
     });
+  }
+
+  clear(table: Table) {
+    table.clear();
   }
 
   // Resuelve el error de "severity" (PrimeNG 18 usa 'warn' en vez de 'warning')

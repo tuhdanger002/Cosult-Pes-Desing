@@ -67,3 +67,31 @@ Asegura que los componentes de PrimeNG ocupen su espacio:host {
     color: #ffa600 !important;
     border: 1px solid rgba(210, 153, 34, 0.5) !important;
 }
+
+/* 3. FILTROS Y BÚSQUEDA GLOBAL */
+::ng-deep .p-datatable-header {
+    background: #1c2237 !important;
+    border-color: #30363d !important;
+    padding: 1rem !important;
+}
+
+::ng-deep .p-column-filter-menu-button,
+::ng-deep .p-column-filter-clear-button {
+    color: #8b949e !important;
+}
+
+::ng-deep .p-column-filter-menu-button:hover,
+::ng-deep .p-column-filter-menu-button.p-column-filter-menu-button-active {
+    background: rgba(56, 139, 253, 0.15) !important;
+    color: #58a6ff !important;
+}
+
+/* Ajuste para el input de búsqueda global */
+::ng-deep .p-datatable .p-iconfield .p-inputtext {
+    width: 250px !important;
+    height: 38px !important;
+}
+
+::ng-deep .p-iconfield .p-inputicon {
+    color: #8b949e !important;
+}
