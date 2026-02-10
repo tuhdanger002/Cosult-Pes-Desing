@@ -95,3 +95,36 @@ Asegura que los componentes de PrimeNG ocupen su espacio:host {
 ::ng-deep .p-iconfield .p-inputicon {
     color: #8b949e !important;
 }
+
+/* 4. CORRECCIÓN DE PESTAÑAS (TABS) - QUITAR FONDO BLANCO */
+::ng-deep .p-tablist,
+::ng-deep .p-tablist-content,
+::ng-deep .p-tablist-tab-list,
+::ng-deep .p-tabpanels {
+    background: #0d1117 !important;
+    border-color: #30363d !important;
+}
+
+::ng-deep .p-tab {
+    background: transparent !important;
+    color: #8b949e !important;
+    border-bottom: 2px solid transparent !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    padding: 1rem 1.5rem !important;
+    transition: all 0.2s ease !important;
+}
+
+::ng-deep .p-tab:hover {
+    color: #c9d1d9 !important;
+}
+
+::ng-deep .p-tab.p-tab-selected {
+    color: #58a6ff !important;
+    border-bottom: 2px solid #58a6ff !important;
+}
+
+::ng-deep .p-tablist-active-bar {
+    background: #58a6ff !important;
+    height: 3px !important;
+}
