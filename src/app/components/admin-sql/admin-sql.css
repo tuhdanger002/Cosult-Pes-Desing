@@ -1,5 +1,4 @@
-Asegura que los componentes de PrimeNG ocupen su espacio
-:host {
+Asegura que los componentes de PrimeNG ocupen su espacio:host {
     display: block;
     width: 100%;
 }
@@ -9,14 +8,62 @@ Asegura que los componentes de PrimeNG ocupen su espacio
 }
 
 /* Forzar el estilo de la cabecera si desaparece */
-::ng-deep .p-datatable .p-datatable-thead > tr > th {
+::ng-deep .p-datatable .p-datatable-thead>tr>th {
     background: #21262d !important;
     color: #c9d1d9 !important;
     padding: 1rem;
 }
 
 /* Estilo para que las filas no se vean pegadas */
-::ng-deep .p-datatable .p-datatable-tbody > tr {
+::ng-deep .p-datatable .p-datatable-tbody>tr {
     background: #161b22 !important;
     color: #ecf0f1 !important;
+    border-bottom: 1px solid #30363d !important;
+}
+
+/* 1. CORRECCIÓN DEL PAGINADOR (QUITAR FONDO BLANCO) */
+::ng-deep .p-paginator {
+    background: #0d1117 !important;
+    border: 1px solid #30363d !important;
+    border-top: none !important;
+    padding: 0.5rem !important;
+}
+
+::ng-deep .p-paginator .p-paginator-page,
+::ng-deep .p-paginator .p-paginator-next,
+::ng-deep .p-paginator .p-paginator-last,
+::ng-deep .p-paginator .p-paginator-first,
+::ng-deep .p-paginator .p-paginator-prev {
+    color: #c9d1d9 !important;
+}
+
+::ng-deep .p-paginator .p-paginator-page.p-highlight {
+    background: rgba(56, 139, 253, 0.15) !important;
+    color: #58a6ff !important;
+}
+
+/* 2. MEJORA DE LAS ETIQUETAS DE ESTADO */
+::ng-deep .p-tag {
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    padding: 0.25rem 0.6rem !important;
+    border-radius: 4px !important;
+}
+
+::ng-deep .p-tag-success {
+    background: rgba(35, 134, 54, 0.2) !important;
+    color: #3fb950 !important;
+    border: 1px solid rgba(63, 185, 80, 0.3) !important;
+}
+
+::ng-deep .p-tag-danger {
+    background: rgba(248, 81, 73, 0.2) !important;
+    color: #ff7b72 !important;
+    border: 1px solid rgba(248, 81, 73, 0.3) !important;
+}
+
+::ng-deep .p-tag-warn {
+    background: rgba(210, 153, 34, 0.2) !important;
+    color: #d29922 !important;
+    border: 1px solid rgba(210, 153, 34, 0.3) !important;
 }
