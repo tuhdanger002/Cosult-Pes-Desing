@@ -1,11 +1,7 @@
+@import "primeflex/primeflex.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* 1. IMPORTACIÓN DE PRIMEFLEX */
-
-/* Probamos con la ruta relativa que suele funcionar mejor en Angular moderno */
-@import "primeflex/primeflex.css";
 
 /* 2. VARIABLES DE DISEÑO EDENORTE */
 :root {
