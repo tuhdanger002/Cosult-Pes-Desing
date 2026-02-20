@@ -1,4 +1,4 @@
-<div class="p-8 bg-[#061024b9] min-h-screen text-white">
+<div class="p-8 bg-[#0d1117] min-h-screen text-white">
 
 
 
@@ -7,20 +7,20 @@
     <img src="assets/logo.png" alt="Logo" class="h-32 mb-4">
     <div class="flex flex-col items-center">
       <h1 class="text-3xl font-bold tracking-tight text-white uppercase italic">
-        GERENCIA DE ENERGÍA PREDESPACHO
+        CONSULTA PES - PREDESPACHO
       </h1>
       <div class="h-1 w-20 bg-blue-600 mt-2 rounded-full"></div>
     </div>
   </header>
 
   <!-- 2. SECCIÓN DE FILTROS (ESTILO IMAGEN) -->
-  <div class="max-w-7xl mx-auto bg-[#1c2237] p-8 rounded-2xl border border-gray-700/30 mb-8 shadow-2xl relative">
+  <div class="max-w-7xl mx-auto bg-[#161b22] p-8 rounded-2xl border border-gray-700/30 mb-8 shadow-2xl relative">
 
     <!-- Row 1: 4 columns -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
       <div class="flex flex-col gap-2">
         <label class="text-xs font-semibold text-gray-400">Número PES</label>
-        <input pInputText type="text" [(ngModel)]="filtros.numPes" class="custom-input-v3" placeholder="105" />
+        <input pInputText type="text" [(ngModel)]="filtros.numPes" class="custom-input-v3" placeholder="" />
       </div>
 
       <div class="flex flex-col gap-2">
@@ -49,10 +49,8 @@
           appendTo="body" class="custom-select-v3 w-full"></p-select>
       </div>
 
-      <div class="md:col-span-4 flex flex-col gap-2">
-        <label class="text-xs font-semibold text-gray-400">Gerencia</label>
-        <p-select [options]="gerencias" [(ngModel)]="filtros.gerencia" optionLabel="label"
-          placeholder="Seleccione Gerencia" appendTo="body" class="custom-select-v3 w-full"></p-select>
+      <div class="md:col-span-4 mt-2 md:mt-0">
+
       </div>
 
       <div class="md:col-span-4 mt-2 md:mt-0">

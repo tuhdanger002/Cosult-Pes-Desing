@@ -14,6 +14,9 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { TabsModule } from 'primeng/tabs';
+import { RippleModule } from 'primeng/ripple';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 import { Circuito } from '../../models/circuito.model';
 import { CircuitoService } from '../../services/circuito.service';
@@ -34,8 +37,11 @@ import { CircuitoService } from '../../services/circuito.service';
     IconFieldModule,
     InputIconModule,
     MultiSelectModule,
-    TabsModule
+    TabsModule,
+    RippleModule,
+    ToastModule
   ],
+  providers: [MessageService],
   templateUrl: './admin-sql.html',
   styleUrls: ['./admin-sql.css']
 })
@@ -59,11 +65,15 @@ export class AdminSqlComponent implements OnInit {
   circuitoSeleccionado: Circuito = {
     smt: '',
     nombre: '',
+    cliente: 0,
     estado: '',
     acuerdos_Pes: ''
   };
 
-  constructor(private _circuitoService: CircuitoService) { }
+  constructor(
+    private _circuitoService: CircuitoService,
+    private _messageService: MessageService
+  ) { }
 
   ngOnInit(): void {
     this.obtenerCircuitos();
@@ -113,6 +123,12 @@ export class AdminSqlComponent implements OnInit {
           next: () => {
             this.obtenerCircuitos();
             this.displayModal = false;
+            this._messageService.add({
+              severity: 'success',
+              summary: 'Éxito',
+              detail: 'Los datos fueron actualizados',
+              life: 3000
+            });
           },
           error: (err) => console.error('Error al actualizar:', err)
         });

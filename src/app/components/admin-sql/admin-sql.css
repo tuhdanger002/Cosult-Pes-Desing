@@ -1,4 +1,4 @@
-Asegura que los componentes de PrimeNG ocupen su espacio:host {
+:host {
     display: block;
     width: 100%;
 }
@@ -10,18 +10,19 @@ Asegura que los componentes de PrimeNG ocupen su espacio:host {
 /* Forzar el estilo de la cabecera si desaparece */
 ::ng-deep .p-datatable .p-datatable-thead>tr>th {
     background: #21262d !important;
-    color: #c9d1d9 !important;
+    color: #58a6ff !important;
     padding: 1rem;
+    border-bottom: 1px solid #30363d !important;
 }
 
 /* Estilo para que las filas no se vean pegadas */
 ::ng-deep .p-datatable .p-datatable-tbody>tr {
     background: #161b22 !important;
-    color: #ecf0f1 !important;
+    color: #f0f6fc !important;
     border-bottom: 1px solid #30363d !important;
 }
 
-/* 1. CORRECCIÓN DEL PAGINADOR (QUITAR FONDO BLANCO) */
+/* 1. CORRECCIÓN DEL PAGINADOR */
 ::ng-deep .p-paginator {
     background: #0d1117 !important;
     border: 1px solid #30363d !important;
@@ -37,9 +38,24 @@ Asegura que los componentes de PrimeNG ocupen su espacio:host {
     color: #c9d1d9 !important;
 }
 
-::ng-deep .p-paginator .p-paginator-page.p-highlight {
-    background: rgba(56, 139, 253, 0.15) !important;
+/* Arreglo para el selector de filas (dropdown) en el paginador */
+::ng-deep .p-paginator .p-select {
+    background-color: #161b22 !important;
+    border: 1px solid #30363d !important;
+}
+
+::ng-deep .p-paginator .p-select .p-select-label {
+    color: #f0f6fc !important;
+}
+
+::ng-deep .p-paginator .p-select .p-select-dropdown {
+    color: #8b949e !important;
+}
+
+::ng-deep .p-paginator .p-paginator-page.p-paginator-page-selected {
+    background: rgba(88, 166, 255, 0.2) !important;
     color: #58a6ff !important;
+    border: 1px solid rgba(88, 166, 255, 0.5) !important;
 }
 
 /* 2. MEJORA DE LAS ETIQUETAS DE ESTADO */
@@ -96,7 +112,7 @@ Asegura que los componentes de PrimeNG ocupen su espacio:host {
     color: #8b949e !important;
 }
 
-/* 4. CORRECCIÓN DE PESTAÑAS (TABS) - QUITAR FONDO BLANCO */
+/* 4. CORRECCIÓN DE PESTAÑAS (TABS) */
 ::ng-deep .p-tablist,
 ::ng-deep .p-tablist-content,
 ::ng-deep .p-tablist-tab-list,
@@ -127,4 +143,72 @@ Asegura que los componentes de PrimeNG ocupen su espacio:host {
 ::ng-deep .p-tablist-active-bar {
     background: #58a6ff !important;
     height: 3px !important;
+}
+
+/* 5. DIALOGO (MODAL) OSCURO */
+::ng-deep .dark-dialog .p-dialog-header,
+::ng-deep .dark-dialog .p-dialog-content,
+::ng-deep .dark-dialog .p-dialog-footer {
+    background-color: #161b22 !important;
+    color: #f0f6fc !important;
+    border-color: #30363d !important;
+}
+
+::ng-deep .dark-dialog .p-dialog-title {
+    color: #58a6ff !important;
+    font-weight: bold !important;
+}
+
+::ng-deep .dark-dialog .p-dialog-header-icon {
+    color: #8b949e !important;
+}
+
+::ng-deep .dark-dialog .p-dialog-header-icon:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Asegurar estilo de inputs dentro de diálogos */
+::ng-deep .dark-dialog .p-inputtext,
+::ng-deep .dark-dialog .p-textarea {
+    background-color: #0d1117 !important;
+    color: #f0f6fc !important;
+    border: 1px solid #30363d !important;
+}
+
+::ng-deep .dark-dialog .p-inputtext:focus,
+::ng-deep .dark-dialog .p-textarea:focus {
+    border-color: #58a6ff !important;
+    box-shadow: 0 0 0 1px #58a6ff !important;
+}
+
+/* Asegurar que los iconos pi sean visibles y tengan espacio */
+::ng-deep .pi {
+    display: inline-block !important;
+    vertical-align: middle !important;
+}
+
+/* 6. CORRECCIÓN DE BOTONES DE ACCIÓN (ESTILO NEUTRO) */
+::ng-deep .p-datatable-tbody .p-button-secondary.p-button-text {
+    background: transparent !important;
+    color: #8b949e !important;
+    border: none !important;
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+}
+
+::ng-deep .p-datatable-tbody .p-button-secondary.p-button-text:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: #f0f6fc !important;
+}
+
+/* Forzar visibilidad del icono de edición */
+::ng-deep .p-datatable-tbody .p-button-secondary.p-button-text .p-button-icon {
+    color: #8b949e !important;
+    font-size: 1.1rem !important;
+    display: block !important;
+    visibility: visible !important;
+}
+
+::ng-deep .p-datatable-tbody .p-button-secondary.p-button-text:hover .p-button-icon {
+    color: #f0f6fc !important;
 }

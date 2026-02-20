@@ -1,7 +1,13 @@
 @import "primeflex/primeflex.css";
+@import "primeicons/primeicons.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Asegurar color de texto base para el componente */
+app-admin-sql {
+    color: var(--text-color);
+}
 
 /* 2. VARIABLES DE DISEÑO EDENORTE */
 :root {
@@ -53,9 +59,4 @@ body {
     border: 1px solid var(--border-color);
     border-radius: 6px;
     padding: 1.5rem;
-}
-
-/* Forzar que todo texto dentro del componente sea blanco */
-app-admin-sql * {
-    color: white !important;
 }
