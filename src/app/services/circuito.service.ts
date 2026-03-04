@@ -14,7 +14,15 @@ export class CircuitoService {
         return this.http.get<Circuito[]>(this.apiUrl);
     }
 
+    getCircuitosNuevos(): Observable<Circuito[]> {
+        return this.http.get<Circuito[]>(`${this.apiUrl}/circuitosnuevos`);
+    }
+
     updateCircuito(id: number, circuito: Circuito): Observable<any> {
         return this.http.put(`${this.apiUrl}/${id}`, circuito);
+    }
+
+    insertCircuitoNuevo(circuito: Circuito): Observable<any> {
+        return this.http.post(`${this.apiUrl}/InsertCircuitosNuevos`, circuito);
     }
 }

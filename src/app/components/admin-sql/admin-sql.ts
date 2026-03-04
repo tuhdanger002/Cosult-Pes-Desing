@@ -53,6 +53,7 @@ export class AdminSqlComponent implements OnInit {
   inactivos: Circuito[] = [];
   eliminados: Circuito[] = [];
   nuevos: Circuito[] = [];
+  esModoInsert: boolean = false;
 
   displayModal: boolean = false;
 
@@ -80,6 +81,7 @@ export class AdminSqlComponent implements OnInit {
   }
 
   obtenerCircuitos(): void {
+    // Carga general de circuitos
     this._circuitoService.getCircuitos().subscribe({
       next: (data) => {
         this.circuitos = data;
@@ -87,13 +89,21 @@ export class AdminSqlComponent implements OnInit {
       },
       error: (err) => console.error('Error al obtener circuitos:', err)
     });
+
+    // Carga específica de circuitos nuevos
+    this._circuitoService.getCircuitosNuevos().subscribe({
+      next: (data) => {
+        this.nuevos = data;
+      },
+      error: (err) => console.error('Error al obtener circuitos nuevos:', err)
+    });
   }
 
   categorizarCircuitos(data: Circuito[]): void {
     this.activos = data.filter(c => c.estado?.toUpperCase() === 'ACTIVO');
     this.inactivos = data.filter(c => c.estado?.toUpperCase() === 'INACTIVO');
     this.eliminados = data.filter(c => c.estado?.toUpperCase() === 'ELIMINADO');
-    this.nuevos = data.filter(c => c.estado?.toUpperCase() === 'NUEVO');
+    // Ya no filtramos 'NUEVO' de aquí, se carga por separado en obtenerCircuitos()
   }
 
   clear(table: Table) {
@@ -111,13 +121,28 @@ export class AdminSqlComponent implements OnInit {
     }
   }
 
-  abrirEditar(circuito: Circuito): void {
+  abrirEditar(circuito: Circuito, esNuevo: boolean = false): void {
     this.circuitoSeleccionado = { ...circuito };
+    this.esModoInsert = esNuevo;
     this.displayModal = true;
   }
 
   actualizarCircuito(): void {
-    if (this.circuitoSeleccionado.id) {
+    if (this.esModoInsert) {
+      this._circuitoService.insertCircuitoNuevo(this.circuitoSeleccionado).subscribe({
+        next: () => {
+          this.obtenerCircuitos();
+          this.displayModal = false;
+          this._messageService.add({
+            severity: 'success',
+            summary: 'Éxito',
+            detail: 'El circuito fue insertado correctamente',
+            life: 3000
+          });
+        },
+        error: (err) => console.error('Error al insertar:', err)
+      });
+    } else if (this.circuitoSeleccionado.id) {
       this._circuitoService.updateCircuito(this.circuitoSeleccionado.id, this.circuitoSeleccionado)
         .subscribe({
           next: () => {

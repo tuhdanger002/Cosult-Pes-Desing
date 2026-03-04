@@ -38,14 +38,14 @@
           <ng-container *ngTemplateOutlet="tablaTemplate; context: { $implicit: eliminados }"></ng-container>
         </p-tabpanel>
         <p-tabpanel value="3">
-          <ng-container *ngTemplateOutlet="tablaTemplate; context: { $implicit: nuevos }"></ng-container>
+          <ng-container *ngTemplateOutlet="tablaTemplate; context: { $implicit: nuevos, esNuevo: true }"></ng-container>
         </p-tabpanel>
       </p-tabpanels>
     </p-tabs>
   </div>
 
   <!-- TEMPLATE ÚNICO PARA LA TABLA -->
-  <ng-template #tablaTemplate let-data>
+  <ng-template #tablaTemplate let-data let-esNuevo="esNuevo">
     <div class="card shadow-4" style="background: #161b22; border: 1px solid #30363d; border-radius: 8px;">
       <p-table #dt [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
         [globalFilterFields]="['smt', 'nombre', 'estado']" styleClass="p-datatable-sm custom-dark-table">
@@ -133,7 +133,7 @@
             </td>
             <td class="text-center">
               <p-button icon="pi pi-pencil" [text]="true" [rounded]="true" severity="secondary"
-                (click)="abrirEditar(circuito)"></p-button>
+                (click)="abrirEditar(circuito, !!esNuevo)"></p-button>
             </td>
           </tr>
         </ng-template>
@@ -147,63 +147,186 @@
     </div>
   </ng-template>
 
-  <p-dialog [(visible)]="displayModal" [header]="'Editar: ' + circuitoSeleccionado.smt" [modal]="true"
+  <p-dialog [(visible)]="displayModal"
+    [header]="(esModoInsert ? 'Insertar Nuevo: ' : 'Editar: ') + circuitoSeleccionado.smt" [modal]="true"
     [style]="{width: '850px'}" styleClass="dark-dialog">
-    <div class="grid grid-cols-2 gap-x-6 gap-y-4 p-fluid mt-2">
-      <!-- Nombre: Contenedor ancho (2 columnas) -->
+    <div class="grid grid-cols-2 gap-x-6 gap-y-4 p-fluid mt-2 max-h-[70vh] overflow-y-auto">
+      <!-- SECCIÓN 1: IDENTIFICACIÓN -->
+      <div class="col-span-2 border-bottom-1 border-gray-700 pb-2 mt-2">
+        <span class="text-blue-400 font-bold uppercase text-xs">Identificación del Circuito</span>
+      </div>
+      <div class="col-span-1 flex flex-col gap-2">
+        <label class="text-gray-400 font-bold text-xs">SMT</label>
+        <input pInputText [(ngModel)]="circuitoSeleccionado.smt" class="bg-gray-900 text-white border-gray-700 py-1">
+      </div>
+      <div class="col-span-1 flex flex-col gap-2">
+        <label class="text-gray-400 font-bold text-xs">TCT</label>
+        <input pInputText [(ngModel)]="circuitoSeleccionado.tct" class="bg-gray-900 text-white border-gray-700 py-1">
+      </div>
       <div class="col-span-2 flex flex-col gap-2">
         <label class="text-gray-400 font-bold text-sm">Nombre</label>
         <input pInputText [(ngModel)]="circuitoSeleccionado.nombre"
           class="bg-gray-900 text-white border-gray-700 py-2 w-full" placeholder="Nombre completo del circuito">
       </div>
-
-      <!-- Fila 1: Sector y Provincia -->
       <div class="col-span-1 flex flex-col gap-2">
-        <label class="text-gray-400 font-bold text-xs">Sector</label>
-        <input pInputText [(ngModel)]="circuitoSeleccionado.sector" class="bg-gray-900 text-white border-gray-700 py-1">
-      </div>
-      <div class="col-span-1 flex flex-col gap-2">
-        <label class="text-gray-400 font-bold text-xs">Provincia</label>
-        <input pInputText [(ngModel)]="circuitoSeleccionado.provincia"
-          class="bg-gray-900 text-white border-gray-700 py-1">
-      </div>
-
-      <!-- Fila 2: Municipio y Grupo -->
-      <div class="col-span-1 flex flex-col gap-2">
-        <label class="text-gray-400 font-bold text-xs">Municipio</label>
-        <input pInputText [(ngModel)]="circuitoSeleccionado.municipio"
+        <label class="text-gray-400 font-bold text-xs">Empresa</label>
+        <input pInputText [(ngModel)]="circuitoSeleccionado.empresa"
           class="bg-gray-900 text-white border-gray-700 py-1">
       </div>
       <div class="col-span-1 flex flex-col gap-2">
-        <label class="text-gray-400 font-bold text-xs">Grupo</label>
-        <input pInputText [(ngModel)]="circuitoSeleccionado.grp" class="bg-gray-900 text-white border-gray-700 py-1">
+        <label class="text-gray-400 font-bold text-xs">Tipo</label>
+        <input pInputText [(ngModel)]="circuitoSeleccionado.tipo" class="bg-gray-900 text-white border-gray-700 py-1">
       </div>
 
-      <!-- Fila 3: Potencia y Cliente -->
+      <!-- SECCIÓN 2: DATOS TÉCNICOS -->
+      <div class="col-span-2 border-bottom-1 border-gray-700 pb-2 mt-4">
+        <span class="text-blue-400 font-bold uppercase text-xs">Parámetros Técnicos</span>
+      </div>
       <div class="col-span-1 flex flex-col gap-2">
         <label class="text-gray-400 font-bold text-xs">Potencia (KW)</label>
         <input pInputText type="number" [(ngModel)]="circuitoSeleccionado.potenciaKW"
           class="bg-gray-900 text-white border-gray-700 py-1">
       </div>
       <div class="col-span-1 flex flex-col gap-2">
-        <label class="text-gray-400 font-bold text-xs">Cliente</label>
-        <input pInputText [(ngModel)]="circuitoSeleccionado.cliente"
+        <label class="text-gray-400 font-bold text-xs">Clientes</label>
+        <input pInputText type="number" [(ngModel)]="circuitoSeleccionado.cliente"
+          class="bg-gray-900 text-white border-gray-700 py-1">
+      </div>
+      <div class="col-span-1 flex flex-col gap-2">
+        <label class="text-gray-400 font-bold text-xs">Grupo (GRP)</label>
+        <input pInputText [(ngModel)]="circuitoSeleccionado.grp" class="bg-gray-900 text-white border-gray-700 py-1">
+      </div>
+      <div class="col-span-1 flex flex-col gap-2">
+        <label class="text-gray-400 font-bold text-xs">Cant. Horas</label>
+        <input pInputText type="number" [(ngModel)]="circuitoSeleccionado.cant_Horas"
+          class="bg-gray-900 text-white border-gray-700 py-1">
+      </div>
+      <div class="col-span-1 flex flex-col gap-2">
+        <label class="text-gray-400 font-bold text-xs">Baja Frecuencia</label>
+        <input pInputText [(ngModel)]="circuitoSeleccionado.bajaFrec"
+          class="bg-gray-900 text-white border-gray-700 py-1">
+      </div>
+      <div class="col-span-1 flex flex-col gap-2">
+        <label class="text-gray-400 font-bold text-xs">Tensión Cero</label>
+        <input pInputText [(ngModel)]="circuitoSeleccionado.tension_Cero"
+          class="bg-gray-900 text-white border-gray-700 py-1">
+      </div>
+      <div class="col-span-1 flex flex-col gap-2">
+        <label class="text-gray-400 font-bold text-xs">Reenganche</label>
+        <input pInputText [(ngModel)]="circuitoSeleccionado.reenganche"
           class="bg-gray-900 text-white border-gray-700 py-1">
       </div>
 
-      <!-- Fila 4: Estado (Full Width) -->
+      <!-- SECCIÓN 3: UBICACIÓN -->
+      <div class="col-span-2 border-bottom-1 border-gray-700 pb-2 mt-4">
+        <span class="text-blue-400 font-bold uppercase text-xs">Ubicación y Red</span>
+      </div>
+      <div class="col-span-1 flex flex-col gap-2">
+        <label class="text-gray-400 font-bold text-xs">Provincia</label>
+        <input pInputText [(ngModel)]="circuitoSeleccionado.provincia"
+          class="bg-gray-900 text-white border-gray-700 py-1">
+      </div>
+      <div class="col-span-1 flex flex-col gap-2">
+        <label class="text-gray-400 font-bold text-xs">Municipio</label>
+        <input pInputText [(ngModel)]="circuitoSeleccionado.municipio"
+          class="bg-gray-900 text-white border-gray-700 py-1">
+      </div>
+      <div class="col-span-1 flex flex-col gap-2">
+        <label class="text-gray-400 font-bold text-xs">Sector</label>
+        <input pInputText [(ngModel)]="circuitoSeleccionado.sector" class="bg-gray-900 text-white border-gray-700 py-1">
+      </div>
+      <div class="col-span-1 flex flex-col gap-2">
+        <label class="text-gray-400 font-bold text-xs">SE (Subestación)</label>
+        <input pInputText [(ngModel)]="circuitoSeleccionado.se" class="bg-gray-900 text-white border-gray-700 py-1">
+      </div>
+      <div class="col-span-1 flex flex-col gap-2">
+        <label class="text-gray-400 font-bold text-xs">Apoyo</label>
+        <input pInputText [(ngModel)]="circuitoSeleccionado.apoyo" class="bg-gray-900 text-white border-gray-700 py-1">
+      </div>
+
+      <!-- SECCIÓN 4: CÓDIGOS Y PROCESOS -->
+      <div class="col-span-2 border-bottom-1 border-gray-700 pb-2 mt-4">
+        <span class="text-blue-400 font-bold uppercase text-xs">Códigos de Control</span>
+      </div>
+      <div class="col-span-1 flex flex-col gap-2">
+        <label class="text-gray-400 font-bold text-xs">COD_BDI</label>
+        <input pInputText [(ngModel)]="circuitoSeleccionado.coD_BDI"
+          class="bg-gray-900 text-white border-gray-700 py-1">
+      </div>
+      <div class="col-span-1 flex flex-col gap-2">
+        <label class="text-gray-400 font-bold text-xs">Código RPM</label>
+        <input pInputText [(ngModel)]="circuitoSeleccionado.codigo_RPM"
+          class="bg-gray-900 text-white border-gray-700 py-1">
+      </div>
+      <div class="col-span-1 flex flex-col gap-2">
+        <label class="text-gray-400 font-bold text-xs">Código Sector</label>
+        <input pInputText type="number" [(ngModel)]="circuitoSeleccionado.codigo_Sector"
+          class="bg-gray-900 text-white border-gray-700 py-1">
+      </div>
+      <div class="col-span-1 flex flex-col gap-2">
+        <label class="text-gray-400 font-bold text-xs">Código Provincia</label>
+        <input pInputText type="number" [(ngModel)]="circuitoSeleccionado.codigo_Provincia"
+          class="bg-gray-900 text-white border-gray-700 py-1">
+      </div>
+
+      <!-- SECCIÓN 5: CLASIFICACIÓN Y SOCIAL -->
+      <div class="col-span-2 border-bottom-1 border-gray-700 pb-2 mt-4">
+        <span class="text-blue-400 font-bold uppercase text-xs">Clasificación y Social</span>
+      </div>
+      <div class="col-span-1 flex flex-col gap-2">
+        <label class="text-gray-400 font-bold text-xs">Hospital</label>
+        <input pInputText [(ngModel)]="circuitoSeleccionado.hospital"
+          class="bg-gray-900 text-white border-gray-700 py-1">
+      </div>
+      <div class="col-span-1 flex flex-col gap-2">
+        <label class="text-gray-400 font-bold text-xs">Finalidad</label>
+        <input pInputText [(ngModel)]="circuitoSeleccionado.finalidad"
+          class="bg-gray-900 text-white border-gray-700 py-1">
+      </div>
+      <div class="col-span-1 flex flex-col gap-2">
+        <label class="text-gray-400 font-bold text-xs">Mes</label>
+        <input pInputText [(ngModel)]="circuitoSeleccionado.mes" class="bg-gray-900 text-white border-gray-700 py-1">
+      </div>
+      <div class="col-span-2 flex flex-col gap-2">
+        <label class="text-gray-400 font-bold text-xs">ZDI</label>
+        <textarea pTextarea [(ngModel)]="circuitoSeleccionado.zdi" rows="3"
+          class="w-full bg-gray-900 text-white border-gray-700 py-1" [autoResize]="true"></textarea>
+      </div>
+
+      <!-- SECCIÓN 6: ESTADO Y NOTAS -->
+      <div class="col-span-2 border-bottom-1 border-gray-700 pb-2 mt-4">
+        <span class="text-blue-400 font-bold uppercase text-xs">Estado y Acuerdos</span>
+      </div>
       <div class="col-span-2 flex flex-col gap-2">
         <label class="text-gray-400 font-bold text-xs">Estado</label>
         <p-select [options]="statuses" [(ngModel)]="circuitoSeleccionado.estado" optionLabel="label" optionValue="value"
           placeholder="Seleccione un estado" [appendTo]="'body'" class="w-full">
         </p-select>
       </div>
-
-      <!-- Fila 5: Acuerdos PES (Al final) -->
+      <div class="col-span-2 flex flex-col gap-2">
+        <label class="text-gray-400 font-bold text-xs">Acuerdos</label>
+        <textarea pTextarea [(ngModel)]="circuitoSeleccionado.acuerdos" rows="3"
+          class="w-full bg-gray-900 text-white border-gray-700 py-1" [autoResize]="true"></textarea>
+      </div>
       <div class="col-span-2 flex flex-col gap-2">
         <label class="text-gray-400 font-bold text-xs">Acuerdos PES</label>
-        <textarea pTextarea [(ngModel)]="circuitoSeleccionado.acuerdos_Pes" rows="2"
+        <textarea pTextarea [(ngModel)]="circuitoSeleccionado.acuerdos_Pes" rows="3"
           class="w-full bg-gray-900 text-white border-gray-700 py-1" [autoResize]="true"></textarea>
+      </div>
+
+      <!-- SECCIÓN 7: AUDITORÍA (Solo Lectura) -->
+      <div class="col-span-2 border-bottom-1 border-gray-700 pb-2 mt-4">
+        <span class="text-gray-500 font-bold uppercase text-xs italic">Registro de Auditoría</span>
+      </div>
+      <div class="col-span-1 flex flex-col gap-2">
+        <label class="text-gray-500 font-bold text-xs italic text-opacity-70">Creado el</label>
+        <input pInputText [ngModel]="circuitoSeleccionado.create_At | date:'short'"
+          class="bg-gray-800 text-gray-500 border-gray-700 py-1 opacity-60" readonly>
+      </div>
+      <div class="col-span-1 flex flex-col gap-2">
+        <label class="text-gray-500 font-bold text-xs italic text-opacity-70">Actualizado el</label>
+        <input pInputText [ngModel]="circuitoSeleccionado.update_At | date:'short'"
+          class="bg-gray-800 text-gray-500 border-gray-700 py-1 opacity-60" readonly>
       </div>
     </div>
     <ng-template pTemplate="footer">
