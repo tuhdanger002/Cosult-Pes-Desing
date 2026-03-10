@@ -15,6 +15,7 @@ import { InputIconModule } from 'primeng/inputicon';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { TabsModule } from 'primeng/tabs';
 import { RippleModule } from 'primeng/ripple';
+import { TooltipModule } from 'primeng/tooltip';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
@@ -39,7 +40,8 @@ import { CircuitoService } from '../../services/circuito.service';
     MultiSelectModule,
     TabsModule,
     RippleModule,
-    ToastModule
+    ToastModule,
+    TooltipModule
   ],
   providers: [MessageService],
   templateUrl: './admin-sql.html',
@@ -119,6 +121,18 @@ export class AdminSqlComponent implements OnInit {
       case 'PENDIENTE': return 'info';
       default: return 'secondary';
     }
+  }
+
+  abrirNuevo(): void {
+    this.circuitoSeleccionado = {
+      smt: '',
+      nombre: '',
+      cliente: 0,
+      estado: 'ACTIVO',
+      acuerdos_Pes: ''
+    };
+    this.esModoInsert = true;
+    this.displayModal = true;
   }
 
   abrirEditar(circuito: Circuito, esNuevo: boolean = false): void {

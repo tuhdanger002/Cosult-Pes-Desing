@@ -118,11 +118,11 @@
     background: #ffffff !important;
     border: 1px solid #d1d5db !important;
     color: #1f2937 !important;
-    height: 44px !important;
+    height: 36px !important;
     border-radius: 6px !important;
     padding: 0 12px !important;
     width: 100% !important;
-    font-size: 0.95rem !important;
+    font-size: 0.85rem !important;
     font-weight: 400 !important;
 }
 
@@ -137,22 +137,15 @@
     color: #9ca3af !important;
 }
 
-::ng-deep .custom-dp-v3 .p-datepicker-trigger {
-    background: #ffffff !important;
-    border: 1px solid #d1d5db !important;
-    border-left: none !important;
-    color: #6b7280 !important;
-    border-radius: 0 6px 6px 0 !important;
-    height: 44px !important;
-}
+/* Eliminamos el override del trigger ya que el icono ahora va dentro del input */
 
 .btn-consultar-v3 {
     background: #2b6df5 !important;
     color: white !important;
-    height: 44px !important;
+    height: 36px !important;
     border-radius: 8px !important;
     font-weight: 600 !important;
-    font-size: 0.9rem !important;
+    font-size: 0.85rem !important;
     text-transform: uppercase !important;
     letter-spacing: 0.5px !important;
     border: none !important;
