@@ -1,0 +1,78 @@
+<div class="p-8 bg-[#0d1117] min-h-screen text-white">
+
+    <!-- HEADER CENTRALIZADO -->
+    <header class="flex flex-col items-center mb-8 text-center pt-6">
+        <img src="assets/logo.png" alt="Logo" class="h-32 mb-4">
+        <div class="flex flex-col items-center">
+            <h1 class="text-3xl font-bold tracking-tight text-white uppercase italic">
+                Control De Abastecimiento (CDA) - Programa PreDespacho
+            </h1>
+            <div class="h-1 w-20 bg-blue-600 mt-2 rounded-full"></div>
+        </div>
+    </header>
+
+    <!-- CONTROLES -->
+    <div class="max-w-7xl mx-auto bg-[#161b22] p-5 rounded-2xl border border-gray-700/30 mb-6 shadow-2xl relative">
+        <div class="flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center gap-6">
+                <div class="flex flex-col gap-1">
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">SMT / 24 Horas</label>
+                    <select [(ngModel)]="selectedCircuito" (change)="onCircuitoChange()" class="custom-select-dark">
+                        <option value="">Seleccione SMT</option>
+                        <option *ngFor="let c of circuitos" [value]="c.smt">{{ c.smt }}</option>
+                    </select>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Circuito</label>
+                    <span class="text-blue-400 font-bold text-xl h-[42px] flex items-center">{{ selectedCircuitoNombre
+                        || '---' }}</span>
+                </div>
+            </div>
+
+            <div class="flex gap-2 items-end">
+                <button class="btn-nav-dark">&lt;&lt;&lt;</button>
+                <button class="btn-nav-dark">&gt;&gt;&gt;</button>
+                <button class="btn-danger-dark" (click)="borrarTodo()">Borrar Todo</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TABLA / GRID -->
+    <div class="max-w-full mx-auto bg-[#161b22] rounded-xl border border-gray-800 overflow-x-auto shadow-2xl">
+        <table class="scheduler-table-dark">
+            <thead>
+                <tr>
+                    <th class="col-dia">Dia</th>
+                    <th class="col-duracion">DUR / INT</th>
+                    <th *ngFor="let h of horas" class="col-hour">{{ h }}</th>
+                    <th class="col-factor">Factor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let dia of dias; let dIdx = index">
+                    <td class="cell-dia">{{ dia }}</td>
+                    <td class="cell-duracion">{{ getDuracion(dIdx) }}</td>
+                    <td *ngFor="let h of horas" [class.cell-manual]="grid[dIdx][h].type === 'manual'"
+                        [class.cell-pes]="grid[dIdx][h].type === 'pes'" (click)="toggleHour(dIdx, h)" class="cell-hour">
+                        <span *ngIf="grid[dIdx][h].type !== 'none'">x</span>
+                    </td>
+                    <td class="cell-factor"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- LEYENDA -->
+    <div class="mt-8 flex gap-8 justify-center">
+        <div class="flex items-center gap-3">
+            <span
+                class="w-5 h-5 rounded bg-[#00ffff] border border-cyan-400 shadow-[0_0_15px_rgba(0,255,255,0.3)]"></span>
+            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Mantenimiento Manual</span>
+        </div>
+        <div class="flex items-center gap-3">
+            <span
+                class="w-5 h-5 rounded bg-[#ffff00] border border-yellow-400 shadow-[0_0_15px_rgba(255,255,0,0.3)]"></span>
+            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">PES Programado</span>
+        </div>
+    </div>
+</div>
