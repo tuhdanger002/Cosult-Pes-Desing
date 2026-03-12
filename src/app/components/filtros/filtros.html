@@ -114,6 +114,7 @@
           <th>PES</th>
           <th>USUARIO</th>
           <th>RESPONSABLE</th>
+          <th>ALCANCE</th>
           <th>ALIMENTADOR</th>
           <th>FECHA</th>
           <th>INICIO</th>
@@ -135,6 +136,7 @@
           <td class="text-gray-300 font-semibold">{{ item.USUARIO }}</td>
 
           <td class="text-gray-300 font-bold">{{ item.RESPONSABLE }}</td>
+          <td class="text-gray-300 font-bold">{{ item.ALCANCE }}</td>
 
           <td class="text-gray-300 font-bold">{{ item.ALIMENTADOR }}</td>
 
@@ -152,7 +154,7 @@
 
         <tr [class.bg-dark-a]="rowIndex % 2 === 0" [class.bg-dark-b]="rowIndex % 2 !== 0">
 
-          <td colspan="8" class="px-10 py-2">
+          <td colspan="9" class="px-10 py-2">
 
             <span class="text-blue-400 text-s font-bold uppercase">Observación:</span>
 
@@ -167,7 +169,7 @@
         <tr [class.bg-dark-a]="rowIndex % 2 === 0" [class.bg-dark-b]="rowIndex % 2 !== 0"
           class="border-b border-gray-800">
 
-          <td colspan="8" class="px-10 py-2 pb-6">
+          <td colspan="9" class="px-10 py-2 pb-6">
 
             <span class="text-blue-400 text-s font-bold uppercase">Notas:</span>
 
